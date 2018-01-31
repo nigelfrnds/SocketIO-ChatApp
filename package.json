@@ -1,0 +1,16 @@
+{
+  "name": "socketio-chatapp",
+  "version": "1.0.0",
+  "description": "A messaging application made using Socket.IO.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon index.js"
+  },
+  "author": "Nigel Fernandes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
