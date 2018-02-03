@@ -10,7 +10,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = socketIO(http);
 
-var userNumber = 0;
+var userList = [];
 
 var PORT = process.env.PORT || 8080;
 
@@ -20,18 +20,35 @@ app.get('/', (req,res)=> {
   res.sendFile('index.html');
 });
 
+io.use((socket,next) => {
+  let { token } = socket.handshake.query;
+  if(token === '123') {
+    console.log('client authenticated!');
+    next();
+  } else {
+    return next(new Error('authentication error'));
+  }
+});
+
 io.on('connection', (socket) => {
   console.log('user connected');
   socket.on('create user', (username) => {
     console.log('created user: ', username);
-    userNumber++;
-    io.emit('user joined', { userNumber, username });
+    userList.push(username);
+    io.emit('user joined', { userList, username });
   });
 
   socket.on('send message', (data) => {
     const { username, message } = data;
-    console.log(`user: ${username} said ${message}`);
-    io.emit('received message', data);
+
+    const TIME_STAMP = new Date().toLocaleTimeString('en-CA', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    });
+
+    console.log(`user: ${username} said ${message} at ${TIME_STAMP}`);
+    io.emit('received message', { ...data, time_stamp: TIME_STAMP });
   });
 
   socket.on('user typing',(username) => {

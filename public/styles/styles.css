@@ -1,0 +1,8 @@
+.textLeft: {
+  text-align: left;
+}
+
+.message {
+  width: 95%;
+  word-wrap: break-word;
+}

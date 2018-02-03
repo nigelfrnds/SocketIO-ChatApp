@@ -1,5 +1,5 @@
 $(function(){
-  var socket = io();
+  var socket = io('http://localhost:8080?token=123');
   var connected = false;
   var username = "";
 
@@ -32,14 +32,31 @@ $(function(){
 
   // Events to listen for
   socket.on('user joined', (data) => {
-    const { userNumber, username } = data;
-    $('#users').text(`${userNumber} users connected`);
+    const { userList, username } = data;
+    $('#users').text('');
+    userList.map((username,index) => {
+      $('#users').append($('<li class="user">').text(`${username}`));
+    });
     $('#messages').append($('<li>').text(`${username} joined!`));
   });
 
+  $('.user').on('click', (e) => {
+    console.log('clicked on user')
+  });
+
   socket.on('received message', function(data) {
-    const { username, message } = data;
+    const { username, message, time_stamp } = data;
     console.log('message: ', message);
-    $('#messages').append($('<li>').text(`${username}: ${message}`));
+    //$('#messages').append($('<li class="list-group-item">').text(`${username}: ${message} ${time_stamp}`));
+    $('#messages').append(
+      `
+      <li class="list-group-item">
+        <span>
+          <span>${username}: ${message}</span>
+        </span>
+      </li>
+      <span class="textLeft">${time_stamp}</span>
+      `
+    );
   });
 });
