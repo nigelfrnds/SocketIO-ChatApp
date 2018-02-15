@@ -47,16 +47,23 @@ $(function(){
   socket.on('received message', function(data) {
     const { username, message, time_stamp } = data;
     console.log('message: ', message);
+
+    var templateScript = $('#message').html();
+    console.log('template: ', templateScript);
+    var template = Handlebars.compile(templateScript);
+
+    $('#messages').append(template(data));
+
     //$('#messages').append($('<li class="list-group-item">').text(`${username}: ${message} ${time_stamp}`));
-    $('#messages').append(
-      `
-      <li class="list-group-item">
-        <span>
-          <span>${username}: ${message}</span>
-        </span>
-      </li>
-      <span class="textLeft">${time_stamp}</span>
-      `
-    );
+    // $('#messages').append(
+    //   `
+    //   <li class="list-group-item">
+    //     <span>
+    //       <span>${username}: ${message}</span>
+    //     </span>
+    //   </li>
+    //   <span class="textLeft">${time_stamp}</span>
+    //   `
+    // );
   });
 });

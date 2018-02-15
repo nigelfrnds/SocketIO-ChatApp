@@ -6,3 +6,13 @@
   width: 95%;
   word-wrap: break-word;
 }
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+.m-message {
+  display: flex;
+  flex-basis: 85%;
+  flex-wrap: wrap;
+  padding-left: 5px;
+}

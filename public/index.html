@@ -7,18 +7,25 @@
     <script src='/socket.io/socket.io.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <script src="/scripts/main.js"></script>
   </head>
   <body>
     <div class="container-fluid">
       <div id="login">
-        <form action="" id="loginForm">
-          <div class="form-group">
-            <label>Enter a username</label>
-            <input id="username" autocomplete="off" class="form-control"/>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form action="" id="loginForm">
+              <h3 style="text-align:center;">Enter a username</h3>
+              <div class="input-group">
+                <input id="username" autocomplete="off" class="form-control"/>
+                <div class="input-group-btn">
+                  <input type="submit" value="Enter" class="btn btn-success"/>
+                </div>
+              </div>
+            </form>
           </div>
-          <input type="submit" value="Enter" class="btn btn-success"/>
-        </form>
+        </div>
       </div>
       <div id="chat">
         <h1>Chat</h1>
@@ -29,10 +36,12 @@
             </div>
             <form action="" id="chatForm">
               <h4 id="typing"></h4>
-              <span>
+              <div class="input-group">
                 <input class="form-control" id="m" autocomplete="off" />
-                <button class="btn btn-primary">Send</button>
-              </span>
+                <div class="input-group-btn">
+                  <button class="btn btn-primary">Send</button>
+                </div>
+              </div>
             </form>
           </div>
           <div class="col-lg-2">
@@ -42,6 +51,14 @@
         </div>
       </div>
     <div>
-
+    <script id="message" type="text/x-handlebars-template">
+      <li class="list-group-item">
+        <div class="flex-container">
+          <div>{{ username }}:</div>
+          <div class="m-message">{{ message }}</div>
+          <div style="flex-basis: 10%">{{ time_stamp }}</div>
+        </div>
+      </li>
+    </script>
   </body>
 </html>

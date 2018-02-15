@@ -57,6 +57,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('a user disconnected'));
 });
 
-http.listen(8080, () => {
+http.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
